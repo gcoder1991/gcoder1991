@@ -6,6 +6,7 @@ on:
       - .github/workflows/create-pi-mesh-repository.yml
 permissions:
   contents: read
+  administration: write
 jobs:
   create:
     runs-on: ubuntu-latest
