@@ -1,0 +1,21 @@
+name: Create pi-mesh repository
+on:
+  push:
+    paths:
+      - create-pi-mesh-repository.md
+      - .github/workflows/create-pi-mesh-repository.yml
+permissions:
+  contents: read
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create public repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api repos/${{ github.repository_owner }}/pi-mesh >/dev/null 2>&1; then
+            echo "Repository already exists"
+          else
+            gh api --method POST user/repos -f name=pi-mesh -f description='Host-owned DAG orchestration and subagent runtime for Pi' -F private=false
+          fi
